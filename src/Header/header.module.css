@@ -1,0 +1,35 @@
+.wr {
+    background-color: rgb(219, 114, 58);
+    width: auto;
+}
+.headerMenu {
+    display: flex;
+    list-style: none;
+    padding: 6px 16px;
+    justify-content: space-between;
+    align-items: center;
+
+}
+.headerMenu li {
+    margin: 8px 8px;
+}
+.headerMenu li:nth-child(1) {
+    margin-right: auto;
+}
+.headerMenu a {
+    text-decoration: none;
+}
+.logo {
+    height: 48px;
+}
+.link {
+    color: black;
+}
+.btn {
+    border-radius: 16px;
+    margin-bottom: 1rem;
+    background-color: rgb(236, 230, 145);
+    border: 1px solid;
+    font-size: 16px;
+    padding: 8px 16px;
+}
