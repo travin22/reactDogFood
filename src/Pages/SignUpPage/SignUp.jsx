@@ -1,38 +1,77 @@
 import {
   Formik, Form, Field, ErrorMessage,
 } from 'formik'
+import { useMutation } from '@tanstack/react-query'
+import { useNavigate } from 'react-router-dom'
 import { validatorSignUp } from './validatorSignUp'
 import signUpStyles from './signUpStyles.module.css'
+import { withQuery } from '../../HOCs/withQuery'
+import { dogFoodApi } from '../../Api/DogFoodApi'
 
-const initialValues = {
-  email: '',
-  group: '',
-  password: '',
-}
-
-export function SignUp() {
+function SignupInner({ mutateAsync }) {
+  const navigate = useNavigate()
+  const submitHandler = async (values) => {
+    await mutateAsync(values)
+    setTimeout(() => navigate('/signin'))
+  }
   return (
     <Formik
-      initialValues={initialValues}
-      validationSchema={validatorSignUp}
-      onSubmit={(values) => {
-        console.log(values)
+      initialValues={{
+        email: '',
+        group: '',
+        password: '',
       }}
+      validationSchema={validatorSignUp}
+      onSubmit={submitHandler}
     >
-      <Form className={signUpStyles.form}>
-        <Field name="email" placeholder="Email here" type="email" className={signUpStyles.input} />
-        <ErrorMessage name="email" component="p" className={signUpStyles.error} />
-        <Field name="group" placeholder="sm9" type="text" className={signUpStyles.input} />
-        <ErrorMessage name="group" component="p" className={signUpStyles.error} />
-        <Field
-          name="password"
-          placeholder="Password here"
-          type="password"
-          className={signUpStyles.input}
-        />
-        <ErrorMessage name="password" component="p" className={signUpStyles.error} />
-        <button type="submit" className={signUpStyles.btn}>Зарегистрироваться</button>
-      </Form>
+      {(formik) => {
+        const { isValid } = formik
+        return (
+          <Form className={signUpStyles.form}>
+            <Field
+              name="email"
+              placeholder="Email here"
+              type="email"
+              className={signUpStyles.input}
+            />
+            <ErrorMessage name="email" component="p" className={signUpStyles.error} />
+            <Field name="group" placeholder="sm9" type="text" className={signUpStyles.input} />
+            <ErrorMessage name="group" component="p" className={signUpStyles.error} />
+            <Field
+              name="password"
+              placeholder="Password here"
+              type="password"
+              className={signUpStyles.input}
+            />
+            <ErrorMessage name="password" component="p" className={signUpStyles.error} />
+            <button
+              disabled={!isValid}
+              type="submit"
+              className={signUpStyles.btn}
+            >
+              Зарегистрироваться
+            </button>
+          </Form>
+        )
+      } }
     </Formik>
+  )
+}
+const SignupWithQuery = withQuery(SignupInner)
+export function Signup() {
+  const {
+    mutateAsync, isError, error, isLoading,
+  } = useMutation({
+    mutationFn: (values) => dogFoodApi.signup(values),
+  })
+
+  return (
+    <SignupWithQuery
+      mutateAsync={mutateAsync}
+      isError={isError}
+      error={error}
+      isLoading={isLoading}
+    />
+
   )
 }

@@ -3,19 +3,19 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 24px;
 }
 .input{
-    margin-bottom: 1rem;
+    margin-top: 1rem;
     border-radius: 8px;
     border: 1px solid;
 }
 .error{
-    margin-bottom: 1rem;
     color: red;
+    margin-bottom: 0;
 }
 .btn {
     border-radius: 16px;
+    margin-top: 1rem;
     margin-bottom: 1rem;
     background-color: rgb(236, 230, 145);
     border: 1px solid;
