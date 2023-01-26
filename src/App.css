@@ -2,6 +2,13 @@
   text-align: center;
 }
 
+.errorMessage {
+  font-size: 32px;
+  font-weight: 500;
+  color: rgb(124, 20, 41);
+  margin: 150px auto;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
