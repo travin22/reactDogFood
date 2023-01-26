@@ -1,6 +1,14 @@
 .products {
-    margin: 100px 24px;
+    margin: 48px 24px;
     display: grid;
     gap: 24px;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @media (max-width: 720px) {
+    .products{
+      margin: 24px 12px;
+      gap: 12px;
+      grid-template-columns: repeat(2, 1fr);
+    }
   }

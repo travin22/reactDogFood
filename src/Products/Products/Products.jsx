@@ -19,7 +19,6 @@ export function Products() {
       queryKey: ['allProducts'],
       queryFn: () => dogFoodApi.getAllProducts(),
     })
-    console.log({ data })
     if (isLoading) return <Loader />
     if (isError) {
       return (
@@ -28,10 +27,9 @@ export function Products() {
         </div>
       )
     }
-    const { products } = data
     console.log({ data })
-    if (!products.length) {
-      console.log(products.length)
+    const { products } = data
+    if (products === undefined) {
       return <p>Список пуст</p>
     }
     return (

@@ -11,7 +11,7 @@
   }
   .logo {
     height: 80px;
-}
+  }
   .footer_copyright {
     margin-top: 40px;
     text-align: center;
@@ -34,4 +34,28 @@
     margin-bottom: 20px;
     text-decoration: none;
     color: black;
+  }
+
+  @media (max-width: 720px) {
+    .footer {
+      padding: 36px 12px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+    .logo {
+      height: 36px;
+    }
+    .footer_container {
+      display: grid;
+      margin: 12px 12px;
+      gap: 12px;
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+    .footer_group {
+      margin-right: 12px;
+      color: black;
+    }
+    .footer_copyright {
+      margin-top: 12px;
+    }
   }

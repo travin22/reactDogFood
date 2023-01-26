@@ -33,7 +33,7 @@ const router = createBrowserRouter([
       },
     ],
   },
-])
+], { basename: '/reactDogFood' })
 
 // { basename: '/reactDogFood' }
 
