@@ -3,12 +3,13 @@ import {
 } from 'formik'
 import { useNavigate } from 'react-router-dom'
 import { useMutation } from '@tanstack/react-query'
-import React, { useContext } from 'react'
+import { useDispatch } from 'react-redux'
+import React from 'react'
 import { validatorSignIn } from './validatorSignIn'
 import signInStyles from './signInStyles.module.css'
-import { AppSetContext } from '../../context/AppContextProvider'
 import { withQuery } from '../../HOCs/withQuery'
 import { dogFoodApi } from '../../Api/DogFoodApi'
+import { setNewUser } from '../../redux/slices/userSlice'
 
 function SigninInner({ mutateAsync }) {
   const navigate = useNavigate()
@@ -58,17 +59,17 @@ function SigninInner({ mutateAsync }) {
   )
 }
 const SigninWithQuery = withQuery(SigninInner)
+
 function Signin() {
   console.log('render signin')
-  const { setToken, setUserID } = useContext(AppSetContext)
+  const dispatch = useDispatch()
   const {
     mutateAsync, isError, error, isLoading,
   } = useMutation({
-    mutationFn: (values) => dogFoodApi.signin(values)
-      .then((result) => {
-        setToken(result.token)
+    mutationFn: (values) => dogFoodApi.signIn(values)
+      .then((user) => {
         // eslint-disable-next-line no-underscore-dangle
-        setUserID(result.data._id)
+        dispatch(setNewUser(user.data._id, user.token, user.data.email))
       }),
   })
 

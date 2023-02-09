@@ -10,8 +10,8 @@ import { dogFoodApi } from '../../Api/DogFoodApi'
 
 function SignupInner({ mutateAsync }) {
   const navigate = useNavigate()
-  const submitHandler = async (values) => {
-    await mutateAsync(values)
+  const submitHandler = async (data) => {
+    await mutateAsync(data)
     setTimeout(() => navigate('/signin'))
   }
   return (
@@ -62,7 +62,7 @@ export function SignUp() {
   const {
     mutateAsync, isError, error, isLoading,
   } = useMutation({
-    mutationFn: (values) => dogFoodApi.signup(values),
+    mutationFn: (data) => dogFoodApi.signUp(data),
   })
 
   return (

@@ -1,84 +1,82 @@
 class DogFoodApi {
   constructor({ baseURL }) {
     this.baseURL = baseURL
-    this.token = ''
-    this.group = 'sm9'
-    this.userID = ''
   }
 
-  setToken(token) {
-    this.token = token
-  }
-
-  setUserID(userID) {
-    this.userID = userID
-  }
-
-  getAuthorizationHeader() {
+  // eslint-disable-next-line class-methods-use-this
+  getAuthorizationToken() {
     return `Bearer ${this.token}`
   }
 
-  checkToken() {
-    if (!this.token) throw new Error('Отсутствует токен')
+  // eslint-disable-next-line class-methods-use-this
+  checkToken(token) {
+    if (!token) throw new Error('Отсутствует токен')
   }
 
-  async signin(values) {
-    const res = await fetch(`${this.baseURL}/signin`, {
+  async signIn(data) {
+    const response = await fetch(`${this.baseURL}/signin`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-type': 'application/json',
       },
-      body: JSON.stringify(values),
+      body: JSON.stringify(data),
     })
-    if (res.status === 401) {
-      throw new Error('Неверные логин или пароль')
+    return response.json()
+  }
+
+  async signUp(data) {
+    const response = await fetch(`${this.baseURL}/signup`, {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+    return response.json()
+  }
+
+  async getAllProducts(search, token) {
+    const response = await fetch(`${this.baseURL}/products/search?query=${search}`, {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    })
+
+    if (response.status >= 400) {
+      throw new Error(`${response.status}:
+       Произошла ошибка при получении информации о товарах. Попробуйте сделать запрос позже.`)
     }
-    if (res.status === 404) {
-      throw new Error('Пользователь с указанным email не найден')
+
+    return response.json()
+  }
+
+  async getProductByID(id, token) {
+    this.checkToken(token)
+    const res = await fetch(`${this.baseURL}/products/${id}`, {
+      headers: {
+        authorization: this.getAuthorizationToken(token),
+      },
+    })
+
+    if (res.status >= 400 && res.status < 500) {
+      throw new Error(`Произошла ошибка при входе в Личный кабинет. 
+      Проверьте отправляемые данные. Status: ${res.status}`)
     }
-    if (res.status >= 300) {
-      throw new Error(`Ошибка, код ${res.status}`)
+
+    if (res.status >= 500) {
+      throw new Error(`Произошла ошибка при получении ответа от сервера. 
+      Попробуйте сделать запрос позже. Status: ${res.status}`)
     }
+
     return res.json()
   }
 
-  async signup(values) {
-    const res = await fetch(`${this.baseURL}/signup`, {
-      method: 'POST',
+  getProductsByIds(ids, token) {
+    return Promise.all(ids.map((id) => fetch(`${this.baseURL}/products/${id}`, {
       headers: {
-        'Content-Type': 'application/json',
+        authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(values),
-    })
-    if (res.status === 409) {
-      throw new Error('Пользователь с указанным email уже существует')
-    }
-    if (res.status === 400) {
-      throw new Error('Некорректно заполнено одно из полей')
-    }
-    if (res.status >= 300) {
-      throw new Error(`Ошибка, код ${res.status}`)
-    }
-  }
-
-  async getAllProducts() {
-    this.checkToken()
-    const res = await fetch(`${this.baseURL}/products`, {
-      headers: {
-        authorization: this.getAuthorizationHeader(), 'Content-Type': 'application/json',
-      },
-      groupId: this.group,
-    })
-    return res.json()
-  }
-
-  async getProductByID() {
-    this.checkToken()
-  }
-
-  async getProductsByIDs() {
-    this.checkToken()
+    }).then((res) => res.json())))
   }
 }
-
 export const dogFoodApi = new DogFoodApi({ baseURL: 'https://api.react-learning.ru' })

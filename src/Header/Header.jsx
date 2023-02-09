@@ -1,19 +1,18 @@
 import { Link } from 'react-router-dom'
-import { useContext } from 'react'
-import { QueryClientProvider, useQueryClient } from '@tanstack/react-query'
-import { AppContext, AppSetContext } from '../context/AppContextProvider'
+import { useDispatch, useSelector } from 'react-redux'
 import headerStyles from './header.module.css'
 import logo from '../images/DOGFOOD.png'
+import { getTokenSelector, logOut } from '../redux/slices/userSlice'
+import { Search } from '../Search/Search'
 
 export function Header() {
-  const { token } = useContext(AppContext)
-  const { setToken, setUserID } = useContext(AppSetContext)
-  const { clearClient } = useQueryClient(QueryClientProvider)
+  const userToken = useSelector(getTokenSelector)
+  console.log(userToken)
 
-  function logoutHandler() {
-    setToken('')
-    setUserID('')
-    setTimeout(clearClient)
+  const dispatch = useDispatch()
+
+  const logoutHandler = () => {
+    dispatch(logOut())
   }
 
   return (
@@ -23,13 +22,16 @@ export function Header() {
           <li>
             <Link to="/"><img src={logo} alt="DogFood" className={headerStyles.logo} /></Link>
           </li>
-          {token ? (
+          <li>
+            <Search />
+          </li>
+          {userToken ? (
             <li>
               <Link
-                to="/signin"
+                to="/"
                 className={headerStyles.link}
               >
-                <button onClick={logoutHandler} type="button" className={headerStyles.btn}>
+                <button type="button" className={headerStyles.btn} onClick={logoutHandler}>
                   Выйти
                 </button>
               </Link>
@@ -40,7 +42,7 @@ export function Header() {
                 to="/signin"
                 className={headerStyles.link}
               >
-                <button onClick={logoutHandler} type="button" className={headerStyles.btn}>
+                <button type="button" className={headerStyles.btn}>
                   Войти
                 </button>
               </Link>
@@ -53,6 +55,16 @@ export function Header() {
             >
               <button type="button" className={headerStyles.btn}>
                 Регистрация
+              </button>
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/cart"
+              className={headerStyles.link}
+            >
+              <button type="button" className={headerStyles.btn}>
+                Корзина
               </button>
             </Link>
           </li>
