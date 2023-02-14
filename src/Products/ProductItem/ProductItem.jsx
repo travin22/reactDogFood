@@ -1,17 +1,32 @@
-import { useSelector } from 'react-redux'
-import { getUserSelector } from '../../redux/slices/userSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  addCurrentProduct,
+  deleteProduct,
+  getAllCartProductsSelector,
+} from '../../redux/slices/cartSlice'
 import productItemStyle from './productItem.module.css'
 
 export function ProductItem({
   title,
+  id,
   photo,
   price,
   wight,
   discount,
   tags,
-  likes,
 }) {
-  const userToken = useSelector(getUserSelector)
+  const cartProducts = useSelector(getAllCartProductsSelector)
+  const dispatch = useDispatch()
+
+  const moveToCartHandler = () => {
+    dispatch(addCurrentProduct(id))
+  }
+  const removeFromCartHandler = () => {
+    dispatch(deleteProduct(id))
+  }
+
+  const isInCart = (productListId) => cartProducts.find((product) => product.id === productListId)
+
   return (
     <div className={productItemStyle.card}>
       <div className={productItemStyle.tagsWrapper}>
@@ -36,13 +51,6 @@ export function ProductItem({
           alt="изображение товара"
         />
       </div>
-      <div className={productItemStyle.like}>
-        {likes.includes(userToken) ? (
-          <i className="fa-solid fa-heart" />
-        ) : (
-          <i className="fa-regular fa-heart" />
-        )}
-      </div>
       <div className={productItemStyle.price}>
         {price}
         {' '}
@@ -53,8 +61,13 @@ export function ProductItem({
       <button
         className={productItemStyle.buttonBuy}
         type="button"
+        onClick={isInCart(id) ? removeFromCartHandler : moveToCartHandler}
       >
-        В корзину
+        {isInCart(id) ? (
+          <p>В корзине</p>
+        ) : (
+          <p>Добавить</p>
+        )}
       </button>
     </div>
   )

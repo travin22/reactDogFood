@@ -19,9 +19,7 @@ function ProductsInner({ data }) {
       <ul className={productsStyle.products}>
         {products.map((product) => (
           <ProductItem
-          // eslint-disable-next-line no-underscore-dangle
             key={product._id}
-            // eslint-disable-next-line no-underscore-dangle
             id={product._id}
             title={product.name}
             photo={product.pictures}
@@ -59,12 +57,14 @@ export function Products() {
   } = useQuery({
     queryKey: getQueryKey(search),
     queryFn: () => dogFoodApi.getAllProducts(search, userToken),
-    enabled: (userToken !== undefined) && (userToken !== ''),
+    enabled: !!(userToken),
   })
 
   return (
     <>
-      <Search />
+      <div className={productsStyle.search}>
+        <Search />
+      </div>
       <ProductsInnerWithQuery
         data={data}
         isLoading={isLoading}

@@ -1,0 +1,14 @@
+.search {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    border-color: black;
+    width: 300px;
+    padding: 4px 8px;
+}
+@media (max-width: 720px) {
+    .search {
+        width: 150px;
+    }
+}

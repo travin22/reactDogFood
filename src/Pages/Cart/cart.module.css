@@ -1,0 +1,79 @@
+.container {
+    width: 100%;
+}
+.containerEmpty {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+
+}
+.btn {
+    border-radius: 16px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    background-color: rgb(236, 230, 145);
+    border: 1px solid;
+    font-size: 16px;
+    padding: 8px 16px;
+}
+.cartContainer {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+}
+.cartProducts {
+    width: 65%;
+    display: flex;
+    flex-direction: column;
+}
+.cartProductsTop {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 24px 48px;
+}
+.cartInput {
+    background-color: rgb(236, 230, 145);
+}
+
+span input {
+    display: none;/* <--скрываем дефолтный чекбокс */
+  }
+  span span {/* <-- стилизируем новый */
+    height: 12px;
+    width: 12px;
+    border: 1px solid gray;
+    display: inline-block;
+    position: relative;
+    background-color:#FFF;
+    border-radius:2px;
+    padding:3px;
+  }
+  [type=checkbox]:checked + span:before {/* <-- ставим иконку, когда чекбокс включен  */
+    content: '\2714';
+    position: absolute;
+    top: -15px;
+    left: -3px;
+    font-size:23px;
+    color:rgb(219, 114, 58);
+  }
+.cartElement {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+ul li {
+    margin-bottom: 16px; 
+}
+
+.cartInfo {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 100px;
+    margin-right: 36px;
+
+}

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useDebounce } from '../hooks/useDebounce'
 import { changeSearchFilter } from '../redux/slices/filterSlice'
+import searchStyles from './search.module.css'
 
 export function Search() {
   const [search, setSearch] = useState('')
@@ -20,6 +21,7 @@ export function Search() {
 
   return (
     <input
+      className={searchStyles.search}
       placeholder="search..."
       type="text"
       value={search}

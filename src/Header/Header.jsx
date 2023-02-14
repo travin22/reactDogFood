@@ -1,11 +1,14 @@
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import headerStyles from './header.module.css'
 import logo from '../images/DOGFOOD.png'
+import cart from '../images/cart.png'
 import { getTokenSelector, logOut } from '../redux/slices/userSlice'
 import { Search } from '../Search/Search'
+import { clearCart, getAllCartProductsSelector } from '../redux/slices/cartSlice'
 
 export function Header() {
+  const cartProducts = useSelector(getAllCartProductsSelector)
   const userToken = useSelector(getTokenSelector)
   console.log(userToken)
 
@@ -13,6 +16,7 @@ export function Header() {
 
   const logoutHandler = () => {
     dispatch(logOut())
+    dispatch(clearCart())
   }
 
   return (
@@ -59,14 +63,15 @@ export function Header() {
             </Link>
           </li>
           <li>
-            <Link
+            <NavLink
               to="/cart"
               className={headerStyles.link}
             >
-              <button type="button" className={headerStyles.btn}>
-                Корзина
-              </button>
-            </Link>
+              <img src={cart} alt="Cart" className={headerStyles.cart} />
+              <span className={headerStyles.cartNumber}>
+                {cartProducts.length}
+              </span>
+            </NavLink>
           </li>
         </ul>
       </nav>

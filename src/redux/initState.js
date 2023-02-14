@@ -6,12 +6,7 @@ export const initState = {
     email: '',
     token: '',
   },
-  cart: {
-    product_id: {
-      count: '',
-      isChecked: false,
-    },
-  },
+  cart: [],
   filter: {
     search: '',
   },

@@ -1,6 +1,7 @@
 .wr {
     background-color: rgb(219, 114, 58);
-    width: auto;
+    width: 100%;
+
 }
 .headerMenu {
     display: flex;
@@ -17,6 +18,7 @@
 }
 .headerMenu li:nth-child(1) {
     margin-right: auto;
+    align-items: center;
 }
 .headerMenu a {
     text-decoration: none;
@@ -30,12 +32,36 @@
 
 .btn {
     border-radius: 16px;
+    margin-top: 1rem;
     margin-bottom: 1rem;
     background-color: rgb(236, 230, 145);
     border: 1px solid;
     font-size: 16px;
     padding: 8px 16px;
 }
+/* .activeLink {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70px;
+    height: 70px;
+    background-color: rgba(0, 89, 255, 0.2);
+    border-radius: 50%;
+  } */
+  .cart {
+    height: 36px;
+    margin: 8px;
+}
+.cartNumber {
+    position: absolute;
+    top: 4px;
+    right: 16px;
+    color: rgb(238, 225, 210);
+    text-decoration: none;
+    font-size: 24px;
+    font-weight: 800;
+    -webkit-text-stroke: 1px black;
+  }
 @media (max-width: 720px) {
     .logo{
         height: 36px;
@@ -46,5 +72,9 @@
     .btn {
         font-size: 12px;
     padding: 4px 8px;
+    }
+    .cart {
+        height: 28px;
+        margin: 4px;
     }
 }

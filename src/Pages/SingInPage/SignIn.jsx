@@ -10,6 +10,8 @@ import signInStyles from './signInStyles.module.css'
 import { withQuery } from '../../HOCs/withQuery'
 import { dogFoodApi } from '../../Api/DogFoodApi'
 import { setNewUser } from '../../redux/slices/userSlice'
+import { REDUX_CART_LS_KEY } from '../../redux/constants'
+import { cartInitialize } from '../../redux/slices/cartSlice'
 
 function SigninInner({ mutateAsync }) {
   const navigate = useNavigate()
@@ -68,7 +70,11 @@ function Signin() {
   } = useMutation({
     mutationFn: (values) => dogFoodApi.signIn(values)
       .then((user) => {
-        // eslint-disable-next-line no-underscore-dangle
+        const cartFormLS = window.localStorage.getItem(REDUX_CART_LS_KEY)
+        if (cartFormLS) {
+          const cartForCurrentUser = JSON.parse(cartFormLS)[user.data._id]
+          dispatch(cartInitialize(cartForCurrentUser ?? []))
+        }
         dispatch(setNewUser(user.data._id, user.token, user.data.email))
       }),
   })
