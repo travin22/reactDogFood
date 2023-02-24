@@ -5,6 +5,9 @@ export const initState = {
     group: '',
     email: '',
     token: '',
+    name: '',
+    about: '',
+    avatar: '',
   },
   cart: [],
   filter: {

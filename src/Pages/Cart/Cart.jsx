@@ -1,10 +1,11 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable no-underscore-dangle */
 import { useQuery } from '@tanstack/react-query'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { dogFoodApi } from '../../Api/DogFoodApi'
-import { Loader } from '../../Loader/Loader'
+import { Loader } from '../../components/Loader/Loader'
 import { getQueryCartKey } from '../../Products/Products/utils'
 import {
   addAllProductsInCart, clearCart, getAllCartProductsSelector, notAddAllProductsInCart,
@@ -17,6 +18,13 @@ export function Cart() {
   const cart = useSelector(getAllCartProductsSelector)
   const userToken = useSelector(getTokenSelector)
   const dispatch = useDispatch()
+
+  const navigate = useNavigate()
+  useEffect(() => {
+    if (!userToken) {
+      navigate('/signin')
+    }
+  }, [userToken])
 
   const {
     data: cartProducts, isLoading, isError, error,
@@ -111,8 +119,8 @@ export function Cart() {
                   stock={item.stock}
                   discount={item.discount}
                   description={item.description}
-                  isPicked={getCartStateProductById(item._id).isPicked}
-                  count={getCartStateProductById(item._id).count}
+                  isPicked={getCartStateProductById(item._id)?.isPicked}
+                  count={getCartStateProductById(item._id)?.count}
                 />
               ))}
             </ul>

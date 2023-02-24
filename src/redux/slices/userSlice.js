@@ -10,12 +10,15 @@ const userSlice = createSlice({
       reducer(state, action) {
         if (state.email !== action.payload.email) return action.payload
       },
-      prepare(id, token, email) {
+      prepare(id, token, email, name, about, avatar) {
         return {
           payload: {
             id,
             token,
             email,
+            name,
+            about,
+            avatar,
           },
 
         }

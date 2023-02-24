@@ -5,12 +5,13 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Provider } from 'react-redux'
 import App from './App'
-import { Main } from './Main/Main'
 import { SignUp } from './Pages/SignUpPage/SignUp'
 import { SignInMemo } from './Pages/SingInPage/SignIn'
 import { Products } from './Products/Products/Products'
 import { Cart } from './Pages/Cart/Cart'
 import { store } from './redux/store'
+import { Main } from './components/Main/Main'
+import { Profile } from './Pages/profile/Profile'
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: 'products',
         element: <Products />,
+      },
+      {
+        path: 'profile',
+        element: <Profile />,
       },
       {
         path: 'cart',

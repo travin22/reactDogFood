@@ -3,10 +3,11 @@ import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { dogFoodApi } from '../../Api/DogFoodApi'
-import { withQuery } from '../../HOCs/withQuery'
+import { withQuery } from '../../components/HOCs/withQuery'
+import { Search } from '../../components/Search/Search'
+import { Filters } from '../../Filters/Filters'
 import { getSearchSelector } from '../../redux/slices/filterSlice'
 import { getTokenSelector } from '../../redux/slices/userSlice'
-import { Search } from '../../Search/Search'
 import { ProductItem } from '../ProductItem/ProductItem'
 import productsStyle from './products.module.css'
 import { getQueryKey } from './utils'
@@ -65,6 +66,7 @@ export function Products() {
       <div className={productsStyle.search}>
         <Search />
       </div>
+      <Filters />
       <ProductsInnerWithQuery
         data={data}
         isLoading={isLoading}

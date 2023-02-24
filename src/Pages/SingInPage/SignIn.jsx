@@ -7,11 +7,11 @@ import { useDispatch } from 'react-redux'
 import React from 'react'
 import { validatorSignIn } from './validatorSignIn'
 import signInStyles from './signInStyles.module.css'
-import { withQuery } from '../../HOCs/withQuery'
 import { dogFoodApi } from '../../Api/DogFoodApi'
 import { setNewUser } from '../../redux/slices/userSlice'
 import { REDUX_CART_LS_KEY } from '../../redux/constants'
 import { cartInitialize } from '../../redux/slices/cartSlice'
+import { withQuery } from '../../components/HOCs/withQuery'
 
 function SigninInner({ mutateAsync }) {
   const navigate = useNavigate()

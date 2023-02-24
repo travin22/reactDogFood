@@ -5,8 +5,8 @@ import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import { validatorSignUp } from './validatorSignUp'
 import signUpStyles from './signUpStyles.module.css'
-import { withQuery } from '../../HOCs/withQuery'
 import { dogFoodApi } from '../../Api/DogFoodApi'
+import { withQuery } from '../../components/HOCs/withQuery'
 
 function SignupInner({ mutateAsync }) {
   const navigate = useNavigate()

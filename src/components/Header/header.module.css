@@ -13,21 +13,16 @@
     margin-top: 0rem;
 
 }
-.headerMenu li {
-    margin: 4px 8px;
-}
-.headerMenu li:nth-child(1) {
-    margin-right: auto;
-    align-items: center;
-}
-.headerMenu a {
-    text-decoration: none;
+.buttons {
+    display: flex;
+    flex-direction: row;
 }
 .logo {
     height: 48px;
 }
 .link {
     color: black;
+    margin-right: 20px;
 }
 
 .btn {
@@ -39,23 +34,18 @@
     font-size: 16px;
     padding: 8px 16px;
 }
-/* .activeLink {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 70px;
-    height: 70px;
-    background-color: rgba(0, 89, 255, 0.2);
-    border-radius: 50%;
-  } */
-  .cart {
+.lk {
+    height: 36px;
+    margin: 8px;
+}
+.cart {
     height: 36px;
     margin: 8px;
 }
 .cartNumber {
     position: absolute;
     top: 4px;
-    right: 16px;
+    right: 36px;
     color: rgb(238, 225, 210);
     text-decoration: none;
     font-size: 24px;
@@ -65,9 +55,6 @@
 @media (max-width: 720px) {
     .logo{
         height: 36px;
-    }
-    .headerMenu li {
-        margin: 2px 4px;
     }
     .btn {
         font-size: 12px;
