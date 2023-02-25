@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import { REDUX_CART_LS_KEY, REDUX_LS_KEY } from './constants'
 import { getInitState } from './initState'
 import { cartReducer } from './slices/cartSlice'
+import { favoriteReducer } from './slices/favorite'
 import { filterReducer } from './slices/filterSlice'
 import { userReducer } from './slices/userSlice'
 
@@ -10,6 +11,7 @@ export const store = configureStore({
     user: userReducer,
     cart: cartReducer,
     filter: filterReducer,
+    favorites: favoriteReducer,
   },
   preloadedState: getInitState(),
 })

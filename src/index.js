@@ -12,6 +12,7 @@ import { Cart } from './Pages/Cart/Cart'
 import { store } from './redux/store'
 import { Main } from './components/Main/Main'
 import { Profile } from './Pages/Profile/Profile'
+import { Favorite } from './Pages/Favorite/Favorite/Favorite'
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: 'profile',
         element: <Profile />,
+      },
+      {
+        path: 'favorite',
+        element: <Favorite />,
       },
       {
         path: 'cart',

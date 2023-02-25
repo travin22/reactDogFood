@@ -4,6 +4,7 @@ import headerStyles from './header.module.css'
 import logo from '../../images/DOGFOOD.png'
 import cart from '../../images/cart.png'
 import profile from '../../images/lk.png'
+import favorite from '../../images/favorite.png'
 import { getTokenSelector, logOut } from '../../redux/slices/userSlice'
 import { clearCart, getAllCartProductsSelector } from '../../redux/slices/cartSlice'
 import { Search } from '../Search/Search'
@@ -70,6 +71,14 @@ export function Header() {
                 className={headerStyles.link}
               >
                 <img src={profile} alt="Profile" className={headerStyles.lk} />
+              </Link>
+            </div>
+            <div>
+              <Link
+                to="/favorite"
+                className={headerStyles.link}
+              >
+                <img src={favorite} alt="Favorite" className={headerStyles.favorite} />
               </Link>
             </div>
             <div>

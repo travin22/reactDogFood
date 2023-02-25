@@ -4,6 +4,11 @@ import {
   deleteProduct,
   getAllCartProductsSelector,
 } from '../../redux/slices/cartSlice'
+import {
+  addFavorite,
+  getAllFavoriteProductsSelector,
+  removeFavorite,
+} from '../../redux/slices/favorite'
 import productItemStyle from './productItem.module.css'
 
 export function ProductItem({
@@ -16,6 +21,8 @@ export function ProductItem({
   tags,
 }) {
   const cartProducts = useSelector(getAllCartProductsSelector)
+  const favorites = useSelector(getAllFavoriteProductsSelector)
+
   const dispatch = useDispatch()
 
   const moveToCartHandler = () => {
@@ -58,17 +65,38 @@ export function ProductItem({
       </div>
       <div className={productItemStyle.wight}>{wight}</div>
       <div className={productItemStyle.title}>{title}</div>
-      <button
-        className={productItemStyle.buttonBuy}
-        type="button"
-        onClick={isInCart(id) ? removeFromCartHandler : moveToCartHandler}
-      >
-        {isInCart(id) ? (
-          <p>В корзине</p>
-        ) : (
-          <p>Добавить</p>
+
+      <div>
+        {favorites.includes(id) && (
+        <button
+          className={productItemStyle.buttonBuy}
+          type="button"
+          onClick={() => { dispatch(removeFavorite(id)) }}
+        >
+          Из избранного
+        </button>
         )}
-      </button>
+        {!favorites.includes(id) && (
+        <button
+          className={productItemStyle.buttonBuy}
+          type="button"
+          onClick={() => { dispatch(addFavorite(id)) }}
+        >
+          В избранное
+        </button>
+        )}
+        <button
+          className={productItemStyle.buttonBuy}
+          type="button"
+          onClick={isInCart(id) ? removeFromCartHandler : moveToCartHandler}
+        >
+          {isInCart(id) ? (
+            <p>В корзине</p>
+          ) : (
+            <p>Добавить</p>
+          )}
+        </button>
+      </div>
     </div>
   )
 }
