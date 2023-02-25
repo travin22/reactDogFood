@@ -2,28 +2,33 @@ import { useSearchParams } from 'react-router-dom'
 import filtersStyles from './filters.module.css'
 
 const FILTERS = [
-  'PRICE', 'SALES', 'NEW',
+  'Новинки', 'Скидки', 'Дороже', 'Дешевле',
 ]
 
 export function Filters() {
   const [searchParams, setSearchParams] = useSearchParams()
 
   const clickFilterHandler = (filterName) => {
-    setSearchParams({
-      ...Object.fromEntries(searchParams.entries()),
-      filterName,
-    })
+    const currentFilterName = searchParams.get('filterName')
+    if (currentFilterName && currentFilterName.length && currentFilterName === filterName) {
+      setSearchParams('', filterName)
+    } else {
+      setSearchParams({
+        ...Object.fromEntries(searchParams.entries()),
+        filterName,
+      })
+    }
   }
 
   return (
 
-    <div>
+    <div className={filtersStyles.filter}>
       {
-            FILTERS.map((filterName) => (
+            FILTERS.map((filter) => (
               <FilterItem
-                key={filterName}
+                key={filter}
                 clickFilterHandler={clickFilterHandler}
-                filterName={filterName}
+                filterName={filter}
               />
             ))
         }
@@ -39,7 +44,7 @@ export function FilterItem({ filterName, clickFilterHandler }) {
   return (
     <button
       type="button"
-      className={filterName === currentFilterName ? filtersStyles.active : ''}
+      className={filterName === currentFilterName ? filtersStyles.active : filtersStyles.noActive}
       onClick={() => clickFilterHandler(filterName)}
     >
       {filterName}

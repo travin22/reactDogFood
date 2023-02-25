@@ -1,0 +1,24 @@
+.filter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+.active {
+    background-color: rgb(219, 114, 58);
+    border-radius: 8px;
+    margin-right: 12px;
+    border: 1px solid;
+    font-size: 16px;
+    padding: 8px 16px;
+}
+
+.noActive {
+    border-radius: 8px;
+    margin-right: 12px;
+    background-color: rgb(236, 230, 145);
+    border: 1px solid;
+    font-size: 16px;
+    padding: 8px 16px;
+}

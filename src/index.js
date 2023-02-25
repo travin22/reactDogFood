@@ -11,7 +11,7 @@ import { Products } from './Products/Products/Products'
 import { Cart } from './Pages/Cart/Cart'
 import { store } from './redux/store'
 import { Main } from './components/Main/Main'
-import { Profile } from './Pages/profile/Profile'
+import { Profile } from './Pages/Profile/Profile'
 
 const router = createBrowserRouter([
   {
