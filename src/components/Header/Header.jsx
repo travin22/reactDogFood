@@ -8,9 +8,11 @@ import favorite from '../../images/favorite.png'
 import { getTokenSelector, logOut } from '../../redux/slices/userSlice'
 import { clearCart, getAllCartProductsSelector } from '../../redux/slices/cartSlice'
 import { Search } from '../Search/Search'
+import { getAllFavoriteProductsSelector } from '../../redux/slices/favorite'
 
 export function Header() {
   const cartProducts = useSelector(getAllCartProductsSelector)
+  const favoriteProducts = useSelector(getAllFavoriteProductsSelector)
   const userToken = useSelector(getTokenSelector)
   console.log(userToken)
 
@@ -74,12 +76,15 @@ export function Header() {
               </Link>
             </div>
             <div>
-              <Link
+              <NavLink
                 to="/favorite"
                 className={headerStyles.link}
               >
                 <img src={favorite} alt="Favorite" className={headerStyles.favorite} />
-              </Link>
+                <span className={headerStyles.favoritNumber}>
+                  {favoriteProducts.length}
+                </span>
+              </NavLink>
             </div>
             <div>
               <NavLink

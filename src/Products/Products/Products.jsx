@@ -25,10 +25,10 @@ function ProductsInner({ data }) {
       products = products.sort((item, nextItem) => {
         const itemTime = new Date(Date.parse(item.updated_at))
         const nextItemTime = new Date(Date.parse(nextItem.updated_at))
-        if (itemTime < nextItemTime) {
+        if (itemTime > nextItemTime) {
           return -1
         }
-        if (itemTime > nextItemTime) {
+        if (itemTime < nextItemTime) {
           return 1
         }
         return 0

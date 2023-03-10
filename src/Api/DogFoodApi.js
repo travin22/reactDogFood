@@ -14,59 +14,54 @@ class DogFoodApi {
   }
 
   async signIn(data) {
-    const response = await fetch(`${this.baseURL}/signin`, {
+    const res = await fetch(`${this.baseURL}/signin`, {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
       },
       body: JSON.stringify(data),
     })
-    return response.json()
+    return res.json()
   }
 
   async signUp(data) {
-    const response = await fetch(`${this.baseURL}/signup`, {
+    const res = await fetch(`${this.baseURL}/signup`, {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
       },
       body: JSON.stringify(data),
     })
-    return response.json()
+    return res.json()
   }
 
   async getAllProducts(search, token) {
     this.checkToken(token)
-    const response = await fetch(`${this.baseURL}/products/search?query=${search}`, {
+    const res = await fetch(`${this.baseURL}/products/search?query=${search}`, {
       headers: {
         authorization: `Bearer ${token}`,
       },
     })
 
-    if (response.status >= 400) {
-      throw new Error(`${response.status}:
+    if (res.status >= 400) {
+      throw new Error(`${res.status}:
        Произошла ошибка при получении информации о товарах. Попробуйте сделать запрос позже.`)
     }
 
-    return response.json()
+    return res.json()
   }
 
-  async getProductByID(id, token) {
-    this.checkToken(token)
+  async getProduct(id, token) {
     const res = await fetch(`${this.baseURL}/products/${id}`, {
       headers: {
-        authorization: this.getAuthorizationToken(token),
+        authorization: `Bearer ${token}`,
       },
     })
 
-    if (res.status >= 400 && res.status < 500) {
-      throw new Error(`Произошла ошибка при входе в Личный кабинет. 
-      Проверьте отправляемые данные. Status: ${res.status}`)
-    }
-
-    if (res.status >= 500) {
-      throw new Error(`Произошла ошибка при получении ответа от сервера. 
-      Попробуйте сделать запрос позже. Status: ${res.status}`)
+    if (res.status >= 400) {
+      throw new Error(`${res.status}
+      : Произошла ошибка при получении информации о товарe. 
+      ${res.statusText}.`)
     }
 
     return res.json()
@@ -86,6 +81,100 @@ class DogFoodApi {
         authorization: `Bearer ${token}`,
       },
     })
+    return res.json()
+  }
+
+  async addNewProduct(data, token) {
+    const res = await fetch(`${this.baseURL}/products`, {
+      method: 'POST',
+      headers: {
+        authorization: `Bearer ${token}`,
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+    if (res.status >= 400) {
+      throw new Error(`${res.status}: Произошла ошибка при сохранении информации о товаре. 
+      ${res.statusText}.`)
+    }
+    return res.json()
+  }
+
+  async editProduct(productId, data, token) {
+    const res = await fetch(`${this.baseURL}/products/${productId}`, {
+      method: 'PATCH',
+      headers: {
+        authorization: `Bearer ${token}`,
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+    if (res.status >= 400) {
+      throw new Error(`${res.status}
+      : Произошла ошибка при сохранении информации о товаре.
+       ${res.statusText}.`)
+    }
+    return res.json()
+  }
+
+  async deleteProduct(productId, token) {
+    const res = await fetch(`${this.baseURL}/products/${productId}`, {
+      method: 'DELETE',
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    })
+    if (res.status >= 400) {
+      throw new Error(`${res.status}
+      : Произошла ошибка при удалении товара.
+       ${res.statusText}.`)
+    }
+    return res.json()
+  }
+
+  async getComments(productId, token) {
+    const res = await fetch(`${this.baseURL}/products/review/${productId}`, {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    })
+
+    if (res.status >= 400) {
+      throw new Error(`${res.status}
+      : Произошла ошибка при получении отзывов.
+       ${res.statusText}.`)
+    }
+
+    return res.json()
+  }
+
+  async addComment(productId, data, token) {
+    const res = await fetch(`${this.baseURL}/products/review/${productId}`, {
+      method: 'POST',
+      headers: {
+        authorization: `Bearer ${token}`,
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+    if (res.status >= 400) {
+      throw new Error(`${res.status}
+      : Произошла ошибка при сохранении отзыва.
+       ${res.statusText}.`)
+    }
+    return res.json()
+  }
+
+  async deleteComment(productId, reviewId, token) {
+    const res = await fetch(`${this.baseURL}/products/review/${productId}/${reviewId}`, {
+      method: 'DELETE',
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    })
+    if (res.status >= 400) {
+      throw new Error(`${res.status}: Произошла ошибка при удалении отзыва. ${res.statusText}.`)
+    }
     return res.json()
   }
 }

@@ -76,9 +76,9 @@ export function FavoriteItem({
           onClick={isInCart(id) ? removeFromCartHandler : moveToCartHandler}
         >
           {isInCart(id) ? (
-            <p>В корзине</p>
+            <p>Из корзины</p>
           ) : (
-            <p>Добавить</p>
+            <p>В корзину</p>
           )}
         </button>
       </div>

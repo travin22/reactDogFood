@@ -1,4 +1,7 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import {
   addCurrentProduct,
   deleteProduct,
@@ -22,6 +25,7 @@ export function ProductItem({
 }) {
   const cartProducts = useSelector(getAllCartProductsSelector)
   const favorites = useSelector(getAllFavoriteProductsSelector)
+  const navigate = useNavigate()
 
   const dispatch = useDispatch()
 
@@ -32,10 +36,19 @@ export function ProductItem({
     dispatch(deleteProduct(id))
   }
 
+  function detailProductHandler(event) {
+    if (
+      !event.target.closest('button')
+    ) {
+      navigate(`/products/${id}`)
+    }
+  }
+
   const isInCart = (productListId) => cartProducts.find((product) => product.id === productListId)
 
   return (
-    <div className={productItemStyle.card}>
+    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+    <div className={productItemStyle.card} onClick={detailProductHandler}>
       <div className={productItemStyle.tagsWrapper}>
         {discount ? (
           <div className={productItemStyle.discount}>

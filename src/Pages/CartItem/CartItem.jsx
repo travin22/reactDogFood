@@ -36,11 +36,17 @@ export function CartItem({
       <div className="card-body">
         <div className={cartItemStyles.cartAbout}>
           <div className="card-body">
+            <p className="card-text">{description}</p>
+            <p className="card-text">
+              В наличии:
+              {' '}
+              {stock}
+            </p>
             <div className="d-flex flex-row gap-3">
-              <h5 className="card-title">
+              <h4 className="card-title">
                 {discount > 0 && `${((price * (100 - discount)) / 100)} ₽`}
                 {discount === 0 && `${price} ₽`}
-              </h5>
+              </h4>
               {discount > 0 && (
                 <h6 style={{ textDecoration: 'line-through', color: 'gray' }}>
                   {price}
@@ -48,12 +54,6 @@ export function CartItem({
                 </h6>
               )}
             </div>
-            <p className="card-text">{description}</p>
-            <p className="card-text">
-              В наличии:
-              {' '}
-              {stock}
-            </p>
           </div>
           <img src={pictures} className={cartItemStyles.productPicture} alt="product" />
         </div>

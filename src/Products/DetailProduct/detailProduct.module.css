@@ -1,0 +1,51 @@
+.card {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    /* width: 400px; */
+    padding: 8px;
+    flex-direction: column;
+    position: relative;
+    border: 2px solid;
+    border-radius: 8px;
+    background-color: rgb(255, 250, 220);
+}
+.favoriteItem {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin-top: 16px;
+    margin-left: 16px;
+}
+.favorite {
+    width: 24px;
+    cursor: pointer;
+}
+.img {
+    width: 150px;
+}
+.btnDlt {
+    border-radius: 16px;
+    margin-top: 0;
+    background-color: rgb(205, 15, 15);
+    border: 1px solid;
+    font-size: 16px;
+    padding: 8px 16px;
+}
+
+.btnEdt {
+    border-radius: 16px;
+    margin-top: 0;
+    background-color: rgb(37, 198, 19);
+    border: 1px solid;
+    font-size: 16px;
+    padding: 8px 16px;
+}
+.btnBuy {
+    border-radius: 16px;
+    margin-top: 0;
+    background-color: #ece691;
+    border: 1px solid;
+    font-size: 16px;
+    padding: 8px 16px;
+}

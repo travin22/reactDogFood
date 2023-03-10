@@ -1,8 +1,9 @@
 import { useQuery } from '@tanstack/react-query'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { dogFoodApi } from '../../Api/DogFoodApi'
+import { AddProductModal } from '../../components/AddProduct/AddProduct'
 import { Loader } from '../../components/Loader/Loader'
 import { clearCart } from '../../redux/slices/cartSlice'
 import { getTokenSelector, logOut } from '../../redux/slices/userSlice'
@@ -18,6 +19,11 @@ export function Profile() {
   }, [userToken])
 
   const dispatch = useDispatch()
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false)
+
+  const handleAddModalOpen = () => {
+    setIsAddModalOpen(true)
+  }
 
   const logoutHandler = () => {
     dispatch(logOut())
@@ -55,6 +61,13 @@ export function Profile() {
         {data.group}
       </h3>
       <img src={data.avatar} alt="user" />
+      <button
+        className={profileStyles.btn}
+        type="button"
+        onClick={handleAddModalOpen}
+      >
+        Добавить товар
+      </button>
       {userToken ? (
         <div>
           <Link
@@ -69,6 +82,10 @@ export function Profile() {
         <div />
       )}
       <div />
+      <AddProductModal
+        isOpen={isAddModalOpen}
+        setIsAddModalOpen={setIsAddModalOpen}
+      />
     </div>
   )
 }
