@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable no-underscore-dangle */
+/* eslint-disable max-len */
 import { useQuery } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -25,15 +26,16 @@ export function Cart() {
       navigate('/signin')
     }
   }, [userToken])
+  const getKey = cart.map((item) => item.id).toString()
 
   const {
     data: cartProducts, isLoading, isError, error,
   } = useQuery({
-    queryKey: [getQueryCartKey(cart.length)],
+    queryKey: [getQueryCartKey(getKey)],
     queryFn: () => dogFoodApi.getProductsByIds(cart.map((product) => product.id), userToken),
     enabled: !!(userToken),
   })
-  console.log(cartProducts)
+
   const clearCartHandler = () => {
     dispatch(clearCart())
   }
@@ -58,15 +60,11 @@ export function Cart() {
     return Math.ceil(updatedSum)
   }, 0)
   const calculateDiscount = () => findAllPickedProducts().reduce((sum, product) => {
-    const updatedSum = sum + product.count
-    * getCartProductById(product.id).price
-     * (getCartProductById(product.id).discount / 100)
+    const updatedSum = sum + product.count * getCartProductById(product.id).price * (getCartProductById(product.id).discount / 100)
     return Math.ceil(updatedSum)
   }, 0)
   const calculateSumWithDiscount = () => findAllPickedProducts().reduce((sum, product) => {
-    const updatedSum = sum + product.count
-     * getCartProductById(product.id).price
-     * ((100 - getCartProductById(product.id).discount) / 100)
+    const updatedSum = sum + product.count * getCartProductById(product.id).price * ((100 - getCartProductById(product.id).discount) / 100)
     return Math.ceil(updatedSum)
   }, 0)
   if (isLoading) return <Loader />
